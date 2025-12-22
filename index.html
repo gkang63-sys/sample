@@ -3,655 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Coding - AI와 함께하는 새로운 코딩</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0f;
-            color: #ffffff;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(20px);
-            background: rgba(10, 10, 15, 0.8);
-            transition: all 0.3s ease;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #a0a0a0;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-        }
-
-        .nav-cta {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(ellipse at 20% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(240, 147, 251, 0.1) 0%, transparent 60%);
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 1;
-            max-width: 900px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 50px;
-            font-size: 0.875rem;
-            color: #667eea;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #a0a0a0;
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Floating Elements */
-        .floating-code {
-            position: absolute;
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            color: rgba(102, 126, 234, 0.3);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-code:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .floating-code:nth-child(2) { top: 60%; left: 5%; animation-delay: 1s; }
-        .floating-code:nth-child(3) { top: 30%; right: 10%; animation-delay: 2s; }
-        .floating-code:nth-child(4) { top: 70%; right: 5%; animation-delay: 3s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        /* Section Styles */
-        section {
-            padding: 8rem 5%;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem;
-        }
-
-        .section-header h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            color: #a0a0a0;
-            font-size: 1.125rem;
-        }
-
-        /* What is Vibe Coding */
-        .about {
-            background: linear-gradient(180deg, #0a0a0f 0%, #12121a 100%);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .about-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 2.5rem;
-            transition: all 0.4s ease;
-        }
-
-        .about-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(102, 126, 234, 0.3);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .about-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .about-card p {
-            color: #a0a0a0;
-        }
-
-        /* Features */
-        .features {
-            background: #12121a;
-        }
-
-        .feature-showcase {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin-bottom: 6rem;
-        }
-
-        .feature-item:nth-child(even) {
-            direction: rtl;
-        }
-
-        .feature-item:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .feature-text h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-text p {
-            color: #a0a0a0;
-            font-size: 1.125rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-visual {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .code-block {
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            color: #a0a0a0;
-        }
-
-        .code-block .comment { color: #6b7280; }
-        .code-block .keyword { color: #c084fc; }
-        .code-block .string { color: #34d399; }
-        .code-block .function { color: #60a5fa; }
-
-        /* Stats */
-        .stats {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-radius: 32px;
-            padding: 4rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item h3 {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-item p {
-            color: #a0a0a0;
-            margin-top: 0.5rem;
-        }
-
-        /* CTA Section */
-        .cta {
-            text-align: center;
-            background: linear-gradient(180deg, #12121a 0%, #0a0a0f 100%);
-        }
-
-        .cta-box {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            border-radius: 32px;
-            padding: 4rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta p {
-            color: #a0a0a0;
-            font-size: 1.125rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Footer */
-        footer {
-            padding: 4rem 5% 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
-        }
-
-        footer p {
-            color: #6b7280;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            
-            .feature-item {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .feature-item:nth-child(even) {
-                direction: ltr;
-            }
-
-            section { padding: 4rem 5%; }
-            
-            .stats { padding: 2rem; }
-            
-            .cta-box { padding: 2rem; }
-        }
-
-        /* Mobile Menu */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle { display: block; }
-            .nav-cta { display: none; }
-        }
-    </style>
+    <title>사내 카페 예약 - Cafe Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav>
-        <div class="logo">VIBE</div>
-        <ul class="nav-links">
-            <li><a href="#about">소개</a></li>
-            <li><a href="#features">특징</a></li>
-            <li><a href="#stats">성과</a></li>
-        </ul>
-        <a href="#cta" class="nav-cta">시작하기</a>
-        <button class="menu-toggle">☰</button>
+    <!-- 네비게이션 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">☕</span>
+                <span class="logo-text">Cafe Hub</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">카페 소개</a></li>
+                <li><a href="#menu">메뉴</a></li>
+                <li><a href="#space">공간 안내</a></li>
+                <li><a href="#reservation">예약하기</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
 
+    <!-- 히어로 섹션 -->
     <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="floating-code">&lt;code/&gt;</div>
-        <div class="floating-code">{ AI }</div>
-        <div class="floating-code">function()</div>
-        <div class="floating-code">✨ vibe</div>
-        
+        <div class="hero-overlay"></div>
         <div class="hero-content">
-            <span class="hero-badge">🚀 AI 시대의 새로운 개발 패러다임</span>
-            <h1>코딩의 미래,<br><span>바이브 코딩</span></h1>
-            <p>AI와 자연스럽게 대화하며 코드를 만들어가는 새로운 개발 경험. 더 이상 모든 문법을 외울 필요가 없습니다.</p>
-            <div class="hero-buttons">
-                <a href="#about" class="btn-primary">자세히 알아보기</a>
-                <a href="#features" class="btn-secondary">특징 살펴보기</a>
-            </div>
+            <h1>일상 속 작은 쉼표,<br><span class="highlight">Cafe Hub</span></h1>
+            <p>바쁜 업무 중 잠시 여유를 즐기세요.<br>사내 카페에서 따뜻한 커피 한 잔의 휴식을 제공합니다.</p>
+            <a href="#reservation" class="btn-primary">지금 예약하기</a>
         </div>
     </section>
 
-    <section class="about" id="about">
-        <div class="section-header fade-in">
-            <h2>바이브 코딩이란?</h2>
-            <p>Andrej Karpathy가 제안한 개념으로, AI와 협업하여 직관적으로 코드를 작성하는 새로운 방식입니다.</p>
-        </div>
-        
-        <div class="about-grid">
-            <div class="about-card fade-in">
-                <div class="about-icon">💬</div>
-                <h3>자연어로 설명하기</h3>
-                <p>복잡한 문법 대신 원하는 기능을 자연스러운 언어로 설명하면 AI가 이해하고 코드로 변환합니다.</p>
+    <!-- 카페 소개 섹션 -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>카페 소개</h2>
+                <p>직원들의 편안한 휴식과 소통을 위한 공간입니다</p>
             </div>
-            <div class="about-card fade-in">
-                <div class="about-icon">🤝</div>
-                <h3>AI와 협업하기</h3>
-                <p>AI를 페어 프로그래머로 활용하여 아이디어를 빠르게 프로토타입으로 만들고 반복 개선합니다.</p>
-            </div>
-            <div class="about-card fade-in">
-                <div class="about-icon">🎯</div>
-                <h3>결과에 집중하기</h3>
-                <p>구현 세부사항보다 해결하고자 하는 문제와 원하는 결과에 집중할 수 있습니다.</p>
-            </div>
-        </div>
-    </section>
 
-    <section class="features" id="features">
-        <div class="section-header fade-in">
-            <h2>왜 바이브 코딩인가?</h2>
-            <p>전통적인 개발 방식의 한계를 넘어, 더 창의적이고 효율적인 개발을 경험하세요.</p>
-        </div>
-        
-        <div class="feature-showcase">
-            <div class="feature-item fade-in">
-                <div class="feature-text">
-                    <h3>⚡ 빠른 프로토타이핑</h3>
-                    <p>아이디어에서 동작하는 코드까지, 몇 분 만에 완성하세요. 복잡한 보일러플레이트 코드 작성 시간을 획기적으로 줄일 수 있습니다.</p>
-                </div>
-                <div class="feature-visual">
-                    <div class="code-block">
-                        <span class="comment">// 사용자 요청</span><br>
-                        <span class="string">"드래그 앤 드롭이 가능한<br>칸반 보드 만들어줘"</span><br><br>
-                        <span class="comment">// AI 응답: 완성된 코드 제공</span><br>
-                        <span class="keyword">const</span> <span class="function">KanbanBoard</span> = () =&gt; {...}
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <span>☕</span>
+                            <p>카페 전경 사진</p>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <h3>우리 카페 이야기</h3>
+                        <p>Cafe Hub는 2024년 오픈한 사내 카페로, 직원들이 편안하게 휴식을 취하고 동료들과 소통할 수 있는 공간입니다. 프리미엄 원두와 신선한 재료로 정성껏 음료를 준비합니다.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="feature-item fade-in">
-                <div class="feature-text">
-                    <h3>🧠 학습 곡선 최소화</h3>
-                    <p>새로운 프레임워크나 언어를 배우는 데 드는 시간을 줄이고, 핵심 로직 구현에 집중하세요.</p>
-                </div>
-                <div class="feature-visual">
-                    <div class="code-block">
-                        <span class="comment">// 몰라도 괜찮아요</span><br>
-                        <span class="string">"React로 무한 스크롤<br>구현하는 방법 알려줘"</span><br><br>
-                        <span class="comment">// 코드 + 설명 + 예제</span><br>
-                        <span class="keyword">useEffect</span> + <span class="function">IntersectionObserver</span>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <h4>위치</h4>
+                        <p>본사 1층 로비 옆<br>엘리베이터 앞</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="feature-item fade-in">
-                <div class="feature-text">
-                    <h3>🔄 즉각적인 피드백</h3>
-                    <p>에러가 발생하면 AI에게 보여주고 즉시 해결책을 받으세요. 디버깅 시간을 대폭 단축합니다.</p>
-                </div>
-                <div class="feature-visual">
-                    <div class="code-block">
-                        <span style="color: #ef4444;">Error: Cannot read property</span><br>
-                        <span style="color: #ef4444;">'map' of undefined</span><br><br>
-                        <span class="comment">// AI 해결책</span><br>
-                        <span class="keyword">data</span>?.<span class="function">map</span>() <span class="comment">// Optional chaining</span>
+                    <div class="info-card">
+                        <div class="info-icon">🕐</div>
+                        <h4>운영 시간</h4>
+                        <p>평일 08:00 - 18:00<br>주말 및 공휴일 휴무</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">📞</div>
+                        <h4>문의</h4>
+                        <p>내선 1234<br>cafe@company.com</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="stats">
-        <div class="stats fade-in">
-            <div class="stat-item">
-                <h3>10x</h3>
-                <p>더 빠른 프로토타이핑</p>
+    <!-- 메뉴 섹션 -->
+    <section id="menu" class="section menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>메뉴 안내</h2>
+                <p>엄선된 원두와 신선한 재료로 준비합니다</p>
             </div>
-            <div class="stat-item">
-                <h3>70%</h3>
-                <p>반복 작업 감소</p>
-            </div>
-            <div class="stat-item">
-                <h3>∞</h3>
-                <p>창의적 가능성</p>
+
+            <div class="menu-categories">
+                <div class="menu-category">
+                    <h3>☕ 커피</h3>
+                    <ul class="menu-list">
+                        <li>
+                            <span class="menu-name">아메리카노</span>
+                            <span class="menu-price">2,500원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">카페라떼</span>
+                            <span class="menu-price">3,000원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">바닐라라떼</span>
+                            <span class="menu-price">3,500원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">카푸치노</span>
+                            <span class="menu-price">3,000원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">콜드브루</span>
+                            <span class="menu-price">3,500원</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-category">
+                    <h3>🍵 논커피</h3>
+                    <ul class="menu-list">
+                        <li>
+                            <span class="menu-name">녹차라떼</span>
+                            <span class="menu-price">3,500원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">초코라떼</span>
+                            <span class="menu-price">3,500원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">유자차</span>
+                            <span class="menu-price">3,000원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">레몬에이드</span>
+                            <span class="menu-price">3,500원</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-category">
+                    <h3>🥐 디저트 & 간식</h3>
+                    <ul class="menu-list">
+                        <li>
+                            <span class="menu-name">크로와상</span>
+                            <span class="menu-price">2,500원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">머핀</span>
+                            <span class="menu-price">2,000원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">샌드위치</span>
+                            <span class="menu-price">4,500원</span>
+                        </li>
+                        <li>
+                            <span class="menu-name">쿠키</span>
+                            <span class="menu-price">1,500원</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="cta" id="cta">
-        <div class="cta-box fade-in">
-            <h2>지금 바로 시작하세요</h2>
-            <p>AI와 함께 코딩의 새로운 경험을 만나보세요.<br>복잡한 설정 없이, 대화만으로 시작할 수 있습니다.</p>
-            <a href="#" class="btn-primary">무료로 시작하기 →</a>
+    <!-- 공간 안내 섹션 -->
+    <section id="space" class="section space-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>공간 안내</h2>
+                <p>다양한 목적에 맞는 공간을 예약하세요</p>
+            </div>
+
+            <div class="space-grid">
+                <div class="space-card">
+                    <div class="space-image">
+                        <div class="image-placeholder">
+                            <span>🪑</span>
+                            <p>일반 좌석</p>
+                        </div>
+                    </div>
+                    <div class="space-info">
+                        <h3>일반 좌석</h3>
+                        <p>편안한 휴식을 위한 개인 좌석</p>
+                        <ul class="space-features">
+                            <li>✓ 1-2인용</li>
+                            <li>✓ 콘센트 제공</li>
+                            <li>✓ 예약 불필요</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="space-card">
+                    <div class="space-image">
+                        <div class="image-placeholder">
+                            <span>👥</span>
+                            <p>미팅 테이블</p>
+                        </div>
+                    </div>
+                    <div class="space-info">
+                        <h3>미팅 테이블</h3>
+                        <p>소규모 미팅을 위한 테이블</p>
+                        <ul class="space-features">
+                            <li>✓ 4-6인용</li>
+                            <li>✓ 화이트보드</li>
+                            <li>✓ 사전 예약 필요</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="space-card">
+                    <div class="space-image">
+                        <div class="image-placeholder">
+                            <span>🎉</span>
+                            <p>파티 공간</p>
+                        </div>
+                    </div>
+                    <div class="space-info">
+                        <h3>파티 공간</h3>
+                        <p>팀 이벤트, 생일파티 등</p>
+                        <ul class="space-features">
+                            <li>✓ 10-15인용</li>
+                            <li>✓ 음향 시설</li>
+                            <li>✓ 사전 예약 필수</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2024 Vibe Coding. Inspired by the future of development.</p>
+    <!-- 예약 섹션 -->
+    <section id="reservation" class="section reservation-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>공간 예약</h2>
+                <p>원하는 날짜와 시간에 공간을 예약하세요</p>
+            </div>
+
+            <div class="reservation-container">
+                <form id="reservationForm" class="reservation-form">
+                    <!-- 예약자 정보 -->
+                    <div class="form-section">
+                        <h3>예약자 정보</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">이름 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" required placeholder="홍길동">
+                            </div>
+                            <div class="form-group">
+                                <label for="department">부서 <span class="required">*</span></label>
+                                <input type="text" id="department" name="department" required placeholder="개발팀">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">이메일 <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required placeholder="example@company.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">연락처 <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 예약 정보 -->
+                    <div class="form-section">
+                        <h3>예약 정보</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="spaceType">공간 선택 <span class="required">*</span></label>
+                                <select id="spaceType" name="spaceType" required>
+                                    <option value="">공간을 선택하세요</option>
+                                    <option value="meeting">미팅 테이블 (4-6인)</option>
+                                    <option value="party">파티 공간 (10-15인)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="guestCount">이용 인원 <span class="required">*</span></label>
+                                <input type="number" id="guestCount" name="guestCount" min="1" max="15" required placeholder="4">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reservationDate">예약 날짜 <span class="required">*</span></label>
+                                <input type="date" id="reservationDate" name="reservationDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reservationTime">예약 시간 <span class="required">*</span></label>
+                                <select id="reservationTime" name="reservationTime" required>
+                                    <option value="">시간을 선택하세요</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">이용 시간</label>
+                            <select id="duration" name="duration">
+                                <option value="1">1시간</option>
+                                <option value="2">2시간</option>
+                                <option value="3">3시간</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 추가 요청 -->
+                    <div class="form-section">
+                        <h3>추가 요청사항</h3>
+                        <div class="form-group">
+                            <label for="purpose">이용 목적</label>
+                            <input type="text" id="purpose" name="purpose" placeholder="예: 팀 미팅, 생일 파티 등">
+                        </div>
+                        <div class="form-group">
+                            <label for="requests">기타 요청사항</label>
+                            <textarea id="requests" name="requests" rows="3" placeholder="추가 요청사항이 있으면 작성해주세요"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- 제출 버튼 -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">예약 신청하기</button>
+                    </div>
+                </form>
+
+                <!-- 예약 안내 -->
+                <div class="reservation-info">
+                    <div class="info-box">
+                        <h4>📌 예약 안내</h4>
+                        <ul>
+                            <li>예약은 영업일 기준 최소 1일 전에 해주세요.</li>
+                            <li>예약 확정은 이메일로 안내드립니다.</li>
+                            <li>예약 취소는 이용일 하루 전까지 가능합니다.</li>
+                            <li>노쇼(No-show) 2회 시 예약이 제한됩니다.</li>
+                        </ul>
+                    </div>
+                    <div class="info-box">
+                        <h4>⏰ 예약 가능 시간</h4>
+                        <ul>
+                            <li>평일: 08:00 ~ 18:00</li>
+                            <li>점심시간(12:00~13:00)도 이용 가능</li>
+                            <li>1회 최대 3시간까지 예약 가능</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">☕</span>
+                    <span class="logo-text">Cafe Hub</span>
+                </div>
+                <p class="footer-text">직원들의 행복한 휴식을 위한 공간</p>
+                <p class="footer-copyright">&copy; 2024 Cafe Hub. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        // Scroll Animation Observer
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    <!-- 예약 완료 모달 -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <h3>예약 신청이 완료되었습니다!</h3>
+            <p>예약 확정 여부는 이메일로 안내드립니다.</p>
+            <button class="btn-modal-close" onclick="closeModal()">확인</button>
+        </div>
+    </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+    <!-- 로딩 오버레이 -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>예약 처리 중...</p>
+    </div>
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Navbar scroll effect
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                nav.style.padding = '1rem 5%';
-                nav.style.background = 'rgba(10, 10, 15, 0.95)';
-            } else {
-                nav.style.padding = '1.5rem 5%';
-                nav.style.background = 'rgba(10, 10, 15, 0.8)';
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Parallax effect for floating elements
-        document.addEventListener('mousemove', (e) => {
-            const floatingElements = document.querySelectorAll('.floating-code');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            floatingElements.forEach((el, i) => {
-                const speed = (i + 1) * 10;
-                el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-            });
-        });
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>
